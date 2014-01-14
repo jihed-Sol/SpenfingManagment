@@ -1,0 +1,118 @@
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<ns2:confirmMeeting xmlns:ns2="http://ws.schneider.pc30.fr/">
+			<clientData>
+				<refClient>001Z000000hv5CsIAI</refClient>
+				<city>ville-test</city>
+				<zip>38000</zip>
+				<addressLine1>45 rue-test</addressLine1>
+				<addressLine2></addressLine2>
+				<country>FRANCE</country>
+				<firstName>Mathieu-test-07</firstName>
+				<lastName>TEST</lastName>
+				<phone>0123456789</phone>
+				<mobile>0123456789</mobile>
+				<email>test712@open.com</email>
+				<companyMame></companyMame>
+			</clientData>
+			<activityData>
+				<refInter>006Z0000007qtXfIAI</refInter>
+				<activityType>INSTALL</activityType>
+				<activityDescriptions>
+					<activityDescription>
+						<key>Montant de la dernière facture d'électricite ?</key>
+						<value>1320</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Type de chauffage ?</key>
+						<value>Electrique</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de chambres (adultes)?</key>
+						<value>0</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien chauffe eau?</key>
+						<value>0</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de salles de bain ?</key>
+						<value>1</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de bureaux ?</key>
+						<value>0</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de cuisines ?</key>
+						<value>1</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de chambres d'enfant ?</key>
+						<value>0</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Autres pièces ?</key>
+						<value>0</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de radiateurs?</key>
+						<value>3</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de prises TV/HIFI ?</key>
+						<value>1</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Combien de prises frigo, machine à laver, lave vaisselle... ?</key>
+						<value>1</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Configuration: thermostat EER51000</key>
+						<value>2</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Configuration: concentrateur de transformateur de courant
+							EER32000</key>
+						<value>1</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Configuration: actionneur de chauffage électrique EER50000</key>
+						<value>0</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Configuration: prise pilotée EER40000</key>
+						<value>2</value>
+					</activityDescription>
+					<activityDescription>
+						<key>Configuration:box Wiser EER21000</key>
+						<value>1</value>
+					</activityDescription>
+				</activityDescriptions>
+				<equipments>
+					<equipment>
+						<ref>EER21000</ref>
+						<qt>1</qt>
+						<price>384.6300048828125</price>
+					</equipment>
+					<equipment>
+						<ref>EER32000</ref>
+						<qt>1</qt>
+						<price>231.5500030517578</price>
+					</equipment>
+					<equipment>
+						<ref>EER51000</ref>
+						<qt>2</qt>
+						<price>63.029998779296875</price>
+					</equipment>
+					<equipment>
+						<ref>EER40000</ref>
+						<qt>2</qt>
+						<price>63.029998779296875</price>
+					</equipment>
+				</equipments>
+			</activityData>
+		</ns2:confirmMeeting>
+	</soap:Body>
+</soap:Envelope>

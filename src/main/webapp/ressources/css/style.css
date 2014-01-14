@@ -1,0 +1,14 @@
+.nextButton { 
+    background-position: center center;
+    background-image: url(../images/play-icon.png) !important;
+}
+
+.previewButton { 
+    background-position: center center;
+    background-image: url(../images/preview-icon.png) !important;
+}
+
+.resetButton { 
+    background-position: center center;
+    background-image: url(../images/reset.png) !important;
+}
