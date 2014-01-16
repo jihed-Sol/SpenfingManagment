@@ -27,22 +27,38 @@ public class DepenseController {
 
 	@Autowired
 	@Qualifier(IGestion.SERVICE_NAME)
-	IGestion gestion;
-			
+	private IGestion gestion;
+	
+	private SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+	/**
+	 * 	
+	 * @param startDate
+	 * @param endDate
+	 * @param categorie
+	 * @return
+	 */
 	@RequestMapping(value="/DepenseController/getAllSpending.action",method={RequestMethod.POST})
 	public @ResponseBody Map<String,? extends Object> getSpending(String startDate,String endDate,String categorie)
 	{
 		try {
 			
-			logger.info("Call getSpending");								
-			logger.info(startDate);
-			logger.info(endDate);
-			logger.info(categorie);
+			long start =System.currentTimeMillis();
 			
-			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+			logger.info("Call getSpending start ...");
+			//log input data
+			logger.info("Start date : "+startDate);
+			logger.info("End data : "+endDate);
+			logger.info("Categorie : "+categorie);
+
+			//Call listerDepense
+			Map<String, Object> map=gestion.listerDepense(
+					startDate!=null?format.parse(startDate):null,
+					endDate!=null?format.parse(endDate):null,
+					categorie);	
 			
-			return	gestion.listerDepense(format.parse(startDate),format.parse(endDate),categorie);
+			logger.info("GetSpending end  in "+(System.currentTimeMillis()-start));
 			
+			return	map;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return getModelMapError(e.getMessage());
