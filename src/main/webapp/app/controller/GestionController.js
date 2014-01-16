@@ -173,10 +173,7 @@ Ext.define('AM.controller.GestionController', {
 						   icon       : Ext.MessageBox.ERROR,
 						   buttons: Ext.MessageBox.OK,
 						});
-					}
-			
-			
-				
+					}							
 				}
 			},
 			'#ViewConfigcategorieTree' : {
