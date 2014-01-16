@@ -5,7 +5,7 @@ var labelDate=new Date();
 var fDay = Ext.Date.format( new Date(startDate.getFullYear(), startDate.getMonth(), 1) ,'d');
 var lDay = Ext.Date.format( new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0) ,'d');
 
-Ext.define('AM.view.North',{
+Ext.define('AM.view.NorthSide.North',{
 	extend  : 'Ext.panel.Panel',
     height: 30,
 	alias :  'widget.North',

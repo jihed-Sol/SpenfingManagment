@@ -1,4 +1,4 @@
-Ext.define('AM.view.centerContainer' ,{
+Ext.define('AM.view.CenterSide.centerContainer' ,{
 	extend: 'Ext.panel.Panel',	
 	alias: 'widget.centerContainer',	
 	id :  'centerContainer',

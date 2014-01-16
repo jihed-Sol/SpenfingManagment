@@ -10,7 +10,8 @@ Ext.define('AM.store.DepenseStore', {
 			read   : 'POST',
 			update : 'POST',
 			destroy: 'POST'
-        },		 
+        },
+		
         url : 'DepenseController/getAllSpending.action',
 		reader: {
 			type: 'json',

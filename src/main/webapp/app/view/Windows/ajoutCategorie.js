@@ -1,6 +1,7 @@
-Ext.define('AM.view.ajoutCategorie' ,{
+Ext.define('AM.view.Windows.ajoutCategorie' ,{
 	extend : 'Ext.window.Window',
     title: 'Ajout Categorie',
+	
 	stores: ['DepenseStore','CategorieStore'],
 	alias: 'widget.ajoutCategorie',
     height: 200,
@@ -36,24 +37,7 @@ Ext.define('AM.view.ajoutCategorie' ,{
 		}],
 		buttons: [{
             text: 'Save',
-			id :'ajCat',
-			handler : function(){
-				 console.log('ddddd');
-				var form = this.up('form').getForm();
-
-					form.submit({
-						clientValidation: true,
-						url: 'DepenseController/addCategorie.action',
-						success: function(form, action) {
-								
-							 Ext.getStore('TreeStore').load();
-							 refrechStores();
-						},
-						failure: function(form, action) {						
-						}
-				});
-			}
-           
+			id :'ajCat',		
         },{
             text: 'Cancel',
             handler: function() {

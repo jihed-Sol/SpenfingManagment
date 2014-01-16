@@ -1,4 +1,4 @@
-Ext.define('AM.view.pie' ,{
+Ext.define('AM.view.CenterSide.pie' ,{
 	extend: 'Ext.chart.Chart',
 	
 	alias: 'widget.pie',

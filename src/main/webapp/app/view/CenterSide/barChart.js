@@ -1,4 +1,4 @@
-Ext.define('AM.view.barChart' ,{
+Ext.define('AM.view.CenterSide.barChart' ,{
 	extend: 'Ext.chart.Chart',
 	
 	alias: 'widget.barChart',

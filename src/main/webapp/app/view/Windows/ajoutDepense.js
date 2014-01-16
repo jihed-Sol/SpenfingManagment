@@ -1,8 +1,8 @@
-Ext.define('AM.view.modifCategorie' ,{
+Ext.define('AM.view.Windows.ajoutDepense' ,{
 	extend : 'Ext.window.Window',
-    title: 'Modifie Categorie',
+    title: 'Ajout Depense',
 	stores: ['DepenseStore','CategorieStore'],
-	alias: 'widget.modifCategorie',
+	alias: 'widget.ajoutDepense',
     height: 200,
     width: 400,
     layout: 'fit',
@@ -17,13 +17,7 @@ Ext.define('AM.view.modifCategorie' ,{
         },   
         defaultType: 'textfield',
 		items: [{
-		
-			name : 'id',
-			hidden: true
-		
-		},{
             fieldLabel: 'Somme',
-			id :'modifSomme',
             name: 'Somme',
             allowBlank: false,
             tooltip: 'Entrer somme'
@@ -53,16 +47,18 @@ Ext.define('AM.view.modifCategorie' ,{
 			   // Normally we would submit the form to the server here and handle the response...
 				form.submit({
 					clientValidation: true,
-					url: 'DepenseController/updateSpending.action',
+					url: 'DepenseController/addSpending.action',
+					
 					success: function(form, action) {
 							
 						var grid =Ext.getCmp('grid');
-						grid.getStore().load();         
+						refrechStores();        
 					},
 					failure: function(form, action) {						
 					}
 				});
             }
+			
         },{
             text: 'Cancel',
             handler: function() {
@@ -70,5 +66,14 @@ Ext.define('AM.view.modifCategorie' ,{
 				
             }
         }]
-    }]
+    }],		
+	
 });
+
+function refrechStores(){
+	Ext.getStore('DepenseStore').load();
+	Ext.getStore('CategorieStore').load();
+	Ext.getStore('Stat').load();
+	Ext.getStore('TreeStore').load();	
+	Ext.getStore('barStore').load();
+}

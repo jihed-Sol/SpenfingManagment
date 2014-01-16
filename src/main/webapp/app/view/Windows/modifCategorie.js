@@ -1,8 +1,8 @@
-Ext.define('AM.view.modifDepense' ,{
+Ext.define('AM.view.Windows.modifCategorie' ,{
 	extend : 'Ext.window.Window',
-    title: 'Modifie Depense',
+    title: 'Modifie Categorie',
 	stores: ['DepenseStore','CategorieStore'],
-	alias: 'widget.modifDepense',
+	alias: 'widget.modifCategorie',
     height: 200,
     width: 400,
     layout: 'fit',
@@ -57,7 +57,7 @@ Ext.define('AM.view.modifDepense' ,{
 					success: function(form, action) {
 							
 						var grid =Ext.getCmp('grid');
-						refrechStores();         
+						grid.getStore().load();         
 					},
 					failure: function(form, action) {						
 					}
@@ -70,12 +70,5 @@ Ext.define('AM.view.modifDepense' ,{
 				
             }
         }]
-    }],
-	refrechStores  : function(){
-		this.getStore('DepenseStore').load();
-		this.getStore('CategorieStore').load();
-		this.getStore('Stat').load();
-		this.getStore('TreeStore').load();		
-		Ext.getStore('barStore').load();	
-	}
+    }]
 });
