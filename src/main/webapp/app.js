@@ -2,15 +2,30 @@ Ext.application({
     requires: ['Ext.container.Viewport'],
     name: 'AM',
 	 controllers: [
-        'GestionController'
+        'WestSideController',
+		'NorthSideController',
+		'SouthSideController'
     ],
     appFolder: 'app',
     launch: function() {
-        Ext.create('Ext.container.Viewport', {
+		
+        Ext.create('Ext.container.Viewport', {			
             layout: 'border',
+			renderTo :'center',
             items: [{			
 				region: 'north',     // position for region
-				xtype: 'North',	       // enable resizing
+				xtype: 'panel',	       // enable resizing
+				layout : 'vbox',
+				items : [{
+				
+					html:'<img src="ressources/images/header.jpg" height="80" width="100%" />',
+					width :'100%',
+					flext : 1
+				},{
+					xtype : 'North',
+					width : '100%',
+					flex :1
+				}],
 				margins: '0 5 0 5'
 			},{
 				title: 'Depenses',

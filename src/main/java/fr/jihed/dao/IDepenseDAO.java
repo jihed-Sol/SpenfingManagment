@@ -28,4 +28,6 @@ public interface IDepenseDAO extends GenericDao<Depense, Long>{
 	List<Depense> getAll(Date startDate, Date endDate,Long categorie);
 	//Get all spending
 	public List<Depense> getAll(Long categorie);
+	List<Depense> getAll(List<Long> categorie);
+	public List<Depense> getAll(Date startDate, Date endDate, List<Long> categorie) ;
 }

@@ -7,7 +7,7 @@ Ext.define('AM.view.SouthSide.Grid' ,{
     alias: 'widget.grid',
 	id :'grid',
     title: 'Depenses',
-	store :'DepenseStore',    
+	store :'DepenseStore',
 	columns : [
 			{header: 'Id', dataIndex: 'id', flex: 1,hidden :true},
             {header: 'Description',  dataIndex: 'description',  flex: 1},

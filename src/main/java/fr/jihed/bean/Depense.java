@@ -35,9 +35,23 @@ public class Depense implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	private String description;
+	@ManyToOne
+	private User user;
 
 	public Depense() {
 		super();
+	}
+	
+	
+	
+	public Depense(Double somme, Categorie categorie, Date date,
+			String description, User user) {
+		super();
+		this.somme = somme;
+		this.categorie = categorie;
+		this.date = date;
+		this.description = description;
+		this.user = user;
 	}
 	
 	public Depense(Double somme, Date date, String description) {

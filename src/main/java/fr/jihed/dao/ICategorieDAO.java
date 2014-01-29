@@ -22,5 +22,9 @@ public interface ICategorieDAO extends GenericDao<Categorie, Long>{
 	public Categorie getById(Long i);
 	@Override
 	public List<Categorie> getAll();
+	
+	public List<Categorie> getChildCategorie(Long id);
+	
+	public List<Categorie> getRootCategorie();
 
 }

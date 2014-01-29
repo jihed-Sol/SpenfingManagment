@@ -1,26 +1,21 @@
 var fDay = Ext.Date.format( new Date(new Date().getFullYear(), new Date().getMonth(), 1) ,'d');
 var lDay = Ext.Date.format( new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0) ,'d');
-Ext.define('AM.store.Stat', {
-    extend: 'Ext.data.Store',
-	storeId :'StatStore',
-    model: 'AM.model.PieStat',
+
+Ext.define('AM.store.SeriesStore', {
+    extend: 'Ext.data.Store',  
+	model :'AM.model.Series',
 	autoLoad: true,
+
 	proxy: {
         type: 'ajax',
-		actionMethods: {
-			create : 'POST',
-			read   : 'POST',
-			update : 'POST',
-			destroy: 'POST'
-        },
 		extraParams : {
 			'startDate': Ext.Date.format(new Date(), 'Y-m'+'-'+fDay) ,
 			'endDate':  Ext.Date.format(new Date(), 'Y-m'+'-'+lDay)
 		},	
-        url : 'DepenseController/statistique.action',
+        url : 'DepenseController/statistiqueSeries.action',
 		reader: {
 			type: 'json',
-			root :'data',
+			root: 'data',
 			successProperty: 'success'
 		}
     }

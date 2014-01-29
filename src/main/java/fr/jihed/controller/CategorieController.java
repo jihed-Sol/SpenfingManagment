@@ -23,13 +23,21 @@ public class CategorieController {
 	@Autowired
 	@Qualifier(IGestion.SERVICE_NAME)
 	IGestion gestion;
-			
+	
 	@RequestMapping(value="/DepenseController/getCategorie.action")
 	public @ResponseBody Map<String,? extends Object> getSpending()
 	{
 		logger.info("Call getSpending");
 		
 		return gestion.listerCategorie();
+	}
+	
+	@RequestMapping(value="/DepenseController/getRootCategories.action")
+	public @ResponseBody Map<String,? extends Object> getRootCategories()
+	{
+		logger.info("getRootCategories");
+		
+		return gestion.getOnlyRootCategories();
 	}
 	
 	@RequestMapping(value="/DepenseController/addCategorie.action")

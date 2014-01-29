@@ -1,7 +1,7 @@
 Ext.define('AM.view.Windows.ajoutDepense' ,{
 	extend : 'Ext.window.Window',
     title: 'Ajout Depense',
-	stores: ['DepenseStore','CategorieStore'],
+	stores: ['DepenseStore','CategorieStore','barStore','Stat'],
 	alias: 'widget.ajoutDepense',
     height: 200,
     width: 400,
@@ -20,7 +20,15 @@ Ext.define('AM.view.Windows.ajoutDepense' ,{
             fieldLabel: 'Somme',
             name: 'Somme',
             allowBlank: false,
-            tooltip: 'Entrer somme'
+            tooltip: 'Entrer somme',
+			validator: function(val) {
+				console.log('ff');
+				if(isNaN(parseFloat(val)))
+					return 'Somme doit être un numérique';
+				else
+					return true;
+				 
+			}
         },{
             fieldLabel: 'Description',
             name: 'description',
@@ -30,14 +38,17 @@ Ext.define('AM.view.Windows.ajoutDepense' ,{
             fieldLabel: 'date',
             name: 'date',
             xtype: 'datefield',
-            tooltip: 'Entrer date'
+			allowBlank: false,
+            tooltip: 'Entrer date',
+			value: new Date()
         },{
 			xtype: 'combo',
 			fieldLabel: 'Categorie',
 			name: 'idCategorie',
 			displayField: 'name',
 			valueField: 'id',
-			store:	'CategorieStore'
+			store:	'SubCategorieStore',
+			allowBlank: false,
 		}],
 		buttons: [{
             text: 'Save',
@@ -50,9 +61,7 @@ Ext.define('AM.view.Windows.ajoutDepense' ,{
 					url: 'DepenseController/addSpending.action',
 					
 					success: function(form, action) {
-							
-						var grid =Ext.getCmp('grid');
-						refrechStores();        
+						refrech();        
 					},
 					failure: function(form, action) {						
 					}
@@ -70,10 +79,20 @@ Ext.define('AM.view.Windows.ajoutDepense' ,{
 	
 });
 
-function refrechStores(){
+function refrech(){
+	
 	Ext.getStore('DepenseStore').load();
-	Ext.getStore('CategorieStore').load();
-	Ext.getStore('Stat').load();
-	Ext.getStore('TreeStore').load();	
+	Ext.getStore('Stat').load({
+			callback: function(records, operation, success) {
+				var totalSpending=0;
+				for( var i=0;i<records.length;i++)
+				{					
+					totalSpending =totalSpending+ records[i].data.ammount;								
+				}
+				Ext.getCmp('centerContainer').setTitle('Depense Total : '+totalSpending);
+			
+			}
+		});
+	
 	Ext.getStore('barStore').load();
 }

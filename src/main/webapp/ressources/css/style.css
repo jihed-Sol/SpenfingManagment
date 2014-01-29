@@ -12,3 +12,17 @@
     background-position: center center;
     background-image: url(../images/reset.png) !important;
 }
+
+.label{
+	
+	text-align: center;
+	vertical-align:middle;
+	font-color : #2E2E2E;
+	font-weight:bold;
+	font-style:italic  !important;
+}
+
+.headerr{
+	
+	background-image: url(../images/header.png) !important;
+}

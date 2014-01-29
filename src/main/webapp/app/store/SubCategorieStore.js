@@ -1,4 +1,4 @@
-Ext.define('AM.store.CategorieStore', {
+Ext.define('AM.store.SubCategorieStore', {
     extend: 'Ext.data.Store',
     model: 'AM.model.Categorie',
 	autoLoad: true,

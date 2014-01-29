@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,10 +28,24 @@ public class Categorie {
 	private Long parentId = -1L;
 	@Temporal(TemporalType.DATE)
 	private Date creationDate = new Date();
+	@ManyToOne
+	private User user;
 
 	public Categorie() {
 		super();
 	}
+	
+	
+
+	public Categorie(String name, Long parentId, Date creationDate, User user) {
+		super();
+		this.name = name;
+		this.parentId = parentId;
+		this.creationDate = creationDate;
+		this.user = user;
+	}
+
+
 
 	public Categorie(String name, Long parentId, Date creationDate) {
 		super();
@@ -122,6 +137,16 @@ public class Categorie {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

@@ -1,10 +1,12 @@
 package fr.jihed.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import fr.jihed.bean.Categorie;
 import fr.jihed.bean.Depense;
+import fr.jihed.bean.Stat;
 
 /**
  * 
@@ -37,7 +39,11 @@ public interface IGestion {
 
 	Map<String, ? extends Object> statistiqueDepense(Date dateDebut,
 			Date dateFin);
+	public Map<String, ? extends Object> statistiqueDepense(Date dateDebut,
+			Date dateFin,String categorie);
 	Map<String, ? extends Object> statistiqueDepenseBar(Date dateDebut,
+			Date dateFin);
+	Map<String, ? extends Object> statistiqueDepenseSeries(Date dateDebut,
 			Date dateFin);
 
 	Map<String, ? extends Object> statistiqueDepense();
@@ -47,5 +53,13 @@ public interface IGestion {
 	Map<String, Object> getCategorieTree();
 
 	Categorie getCategorieById(Long id);
+	
+	List<Categorie>getSubCategorie(Long id,List<Categorie>categories);
+	List<Long>getAllSubCategorieID(Long id,List<Long>ids);
 
+	Map<String, ? extends Object> statistiqueDepenseBar(Date dateDebut,
+			Date dateFin,String categorie);
+	
+	int categorieIndex(List<Stat>list,long id,int index);
+	Map<String, Object> getOnlyRootCategories();
 }

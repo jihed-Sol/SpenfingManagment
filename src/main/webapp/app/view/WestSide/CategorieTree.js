@@ -1,6 +1,6 @@
 Ext.define('AM.view.WestSide.CategorieTree' ,{
 	extend : 'Ext.tree.Panel',
-	id: 'Cate',
+	id: 'cc',
     title: 'Categories',	
 	alias: 'widget.trees',    
     layout: 'fit',

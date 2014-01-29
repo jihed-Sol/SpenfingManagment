@@ -1,112 +1,25 @@
-Ext.define('AM.controller.GestionController', {
+Ext.define('AM.controller.WestSideController', {
     extend: 'Ext.app.Controller',
 	
-    models: ['Depense','Categorie','PieStat'],
-	stores: ['DepenseStore','CategorieStore','Stat','TreeStore','barStore'],
-	views:['SouthSide.Grid','Windows.ajoutDepense' ,'CenterSide.pie','WestSide.CategorieTree','Windows.ajoutCategorie','NorthSide.North','CenterSide.centerContainer','CenterSide.barChart'],
-	
+      models: ['Depense','Categorie','PieStat','AM.model.Series'],
+	stores: ['DepenseStore','RootCategorieStore','Stat','TreeStore','barStore','SeriesStore','SubCategorieStore'],
+	views:['Windows.ajoutDepense' ,'CenterSide.pie','WestSide.CategorieTree','Windows.ajoutCategorie','NorthSide.North','CenterSide.centerContainer','CenterSide.barChart','CenterSide.Courbes'],
+		
 	init: function() {
 		this.control({
 			'viewport > panel': {
 				render: this.onPanelRendered
-			},
-			'#AjoutDepense' :{
-				 click: function(){
-					console.log('dddddd');
-					Ext.create('AM.view.Windows.ajoutDepense').show();
-				},
-			
-			},
-			'#ModifieDepense' :{
-			
-				click :	function(){			
-		
-					var grid = Ext.getCmp('grid');
-					if (grid.getSelectionModel().hasSelection()) {
-					
-						var row = grid.getSelectionModel().getSelection()[0];
-						var formPanel = Ext.create('AM.view.Windows.modifDepense');
-						var form =formPanel.down('form');
-										
-						console.log(formPanel.down('form').down('combo').value);
-						console.log(formPanel.down('form').down('combo').valueField);
-						
-						form.getForm().findField('id').setValue(row.get('id'));
-						form.getForm().findField('Somme').setValue(row.get('somme'));
-						form.getForm().findField('description').setValue(row.get('description'));
-						form.getForm().findField('date').setValue(row.get('date'));
-						formPanel.down('form').down('combo').setValue(row.get('categorie')['id']);
-						
-						formPanel.show();				  
-					}
-					else
-					{
-						Ext.MessageBox.show({
-						   title      : 'ERROR',
-						   msg        : 'Vous devez selectionner une ligne pour modifier une depense',
-						   width      : 500,
-						   icon       : Ext.MessageBox.ERROR,
-						   buttons: Ext.MessageBox.OK,
-						});
-					}				
-				}
-			},
-			'#SupprimerDepense' : {
-			
-				click : function(){	
-				
-					var grid = Ext.getCmp('grid');
-					if (grid.getSelectionModel().hasSelection()) {
-					
-					   var row = grid.getSelectionModel().getSelection()[0];
-					   var idDepense = row.get('id');
-					   
-					   Ext.Ajax.request({
-						   url: 'DepenseController/deleteSpending.action',
-						   method: '',   
-							params: {
-								'idDepense' : idDepense
-							},
-						   success: function(response, opts) {
-							Ext.MessageBox.show({
-							   title      : 'INFO',
-							   msg        : 'Depense supprimée avec succès',
-							   width      : 300,
-							   icon       : Ext.MessageBox.INFO,
-							   buttons: Ext.MessageBox.OK,
-							});						 		
-								refrechStores();
-						   },
-						   failure: function(response, opts) {
-							  console.log('server-side failure with status code ' + response.status);
-						   }
-						});
-					}
-					else
-					{
-						Ext.MessageBox.show({
-						   title      : 'ERROR',
-						   msg        : 'Vous devez selectionner une ligne pour supprimer une depense',
-						   width      : 500,
-						   icon       : Ext.MessageBox.ERROR,
-						   buttons: Ext.MessageBox.OK,
-						});
-					}								
-				}
-			
-			},
+			},		
 			'#ajCat' : {
 			
 				click : function()
 				{
-					var form = Ext.getCmp('AjoutCategorie').down('form').getForm();
+					var form = Ext.getCmp('AjCat').down('form').getForm();
 						form.submit({
 							clientValidation: true,
 							url: 'DepenseController/addCategorie.action',
-							success: function(form, action) {
-									
-								 Ext.getStore('TreeStore').load();
-								 refrechStores();
+							success: function(form, action) {									
+								  refrechStores();
 							},
 							failure: function(form, action) {						
 							}
@@ -116,8 +29,7 @@ Ext.define('AM.controller.GestionController', {
 			'#AjoutCategorie' :{
 				click : function(){
 					Ext.create('AM.view.Windows.ajoutCategorie').show();		
-				}
-		
+				}		
 			},
 			'#SupprimerCategorie' :{
 				click : function(){
@@ -161,8 +73,7 @@ Ext.define('AM.controller.GestionController', {
 							   failure: function(response, opts) {
 								  console.log('server-side failure with status code ' + response.status);
 							   }
-							});
-						
+							});						
 					}
 					else
 					{
@@ -173,7 +84,7 @@ Ext.define('AM.controller.GestionController', {
 						   icon       : Ext.MessageBox.ERROR,
 						   buttons: Ext.MessageBox.OK,
 						});
-					}							
+					}										
 				}
 			},
 			'#ViewConfigcategorieTree' : {
@@ -198,15 +109,47 @@ Ext.define('AM.controller.GestionController', {
 						   icon       : Ext.MessageBox.INFO,
 						   buttons: Ext.MessageBox.OK,
 						});						 		
-							
+							refrechStores();
 					   },
 					   failure: function(response, opts) {
 						  console.log('server-side failure with status code ' + response.status);
 					   }
 					});
+				},
+				
+				itemclick : function( record, item, index, e, eOpts )
+				{
+					var proxyTab=Ext.getStore('DepenseStore').getProxy();
+					proxyTab.extraParams['categorie']=item['data'].id;
+					Ext.getStore('DepenseStore').setProxy(proxyTab);
+					Ext.getStore('DepenseStore').load();	
+
+				    var proxyTab1=Ext.getStore('Stat').getProxy();
+					proxyTab1.extraParams['categorie']=item['data'].id;
+					Ext.getStore('Stat').setProxy(proxyTab1);
+					Ext.getStore('Stat').load({
+						callback: function(records, operation, success) {
+							var totalSpending=0;
+							for( var i=0;i<records.length;i++)
+							{
+								
+								totalSpending =totalSpending+ records[i].data.ammount;			
+								
+							}
+							Ext.getCmp('centerContainer').setTitle('Depense Total : '+totalSpending);
+						
+						}
+					});
+					
+					var proxyTab2=Ext.getStore('barStore').getProxy();
+					proxyTab2.extraParams['categorie']=item['data'].id;
+					Ext.getStore('barStore').setProxy(proxyTab2);
+					Ext.getStore('barStore').load();	
+								
 				}
 			
-			}
+			
+			},
 			
 		});
 	},
@@ -217,9 +160,20 @@ Ext.define('AM.controller.GestionController', {
 });
 	
 function refrechStores(){
+		
 		Ext.getStore('DepenseStore').load();
 		Ext.getStore('CategorieStore').load();
-		Ext.getStore('Stat').load();
+		Ext.getStore('Stat').load({
+			callback: function(records, operation, success) {
+				for( var i=0;i<records.length;i++)
+				{
+					var totalSpending=0;
+					totalSpending =totalSpending+ records[i].data.ammount;			
+					Ext.getCmp('centerContainer').setTitle('Depense Total : '+totalSpending);
+				}
+			
+			}
+		});
 		Ext.getStore('TreeStore').load();		
 		Ext.getStore('barStore').load();	
 }

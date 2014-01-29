@@ -2,6 +2,7 @@ package fr.jihed.dao.test;
 
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -19,10 +20,12 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 import fr.jihed.bean.Categorie;
 import fr.jihed.bean.Depense;
+import fr.jihed.bean.Stat;
 import fr.jihed.dao.ICategorieDAO;
 import fr.jihed.dao.IDepenseDAO;
 import fr.jihed.service.IGestion;
 
+import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:depense-ui.beans.xml" })
 @TransactionConfiguration(defaultRollback = false)
@@ -109,6 +112,7 @@ public class SpendingTest {
 			
 			Depense depense=new Depense(157.5D, new Date(), "geneve");	
 		    logger.info(gestion.ajoutDepense(depense, 2L));
+		 
 		    
 			} catch (Exception e) {
 			// TODO: handle exception
@@ -134,7 +138,14 @@ public class SpendingTest {
 	@Ignore	
 	public void getAllCategorie() throws ParseException
 	{
-		logger.info(gestion.listerCategorie());
+		
+		try {
+			logger.info(gestion.getCategorieTree());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		
+		
 	}
 	
 
@@ -146,19 +157,76 @@ public class SpendingTest {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	public void getCategorie()
 	{
-		gestion.getCategorieTree();
+		try {
+			logger.info("*****"+gestion.listerCategorie());
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	
+		
 	}
 	
 	@Test
+	@Ignore
 	public void testStatBar() throws ParseException
 	{
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		Date date1=format.parse("2014-01-01");
-		Date date2=format.parse("2032-12-31");
+		Date date2=format.parse("2014-09-31");
 		
-		logger.info(gestion.statistiqueDepenseBar(date1, date2));
+		logger.info(gestion.statistiqueDepense(date1, date2));
+	}
+	
+	@Test
+	@Ignore
+	public void getSubCategorie() throws ParseException
+	{
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+		Date date1=format.parse("2014-01-01");
+		Date date2=format.parse("2014-03-31");
+		
+		try {
+			logger.info("getSubCategorie start ...");
+			logger.info(depenseDAO.getAll(date1,date2,gestion.getAllSubCategorieID(41L,new ArrayList<Long>())));
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		
+	
+	}
+	
+	@Test
+	@Ignore
+	public void getParentCategorie() throws ParseException
+	{
+		
+		try {
+			
+			List<Stat>list=new ArrayList<Stat>();
+			list.add(new Stat("Alimentaire", 0));
+			list.add(new Stat("ménager", 0));
+			list.add(new Stat("hh", 0));
+			list.add(new Stat("courses", 0));		
+			
+			logger.info("Index is : "+gestion.categorieIndex(list, 41L,-1));
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+	}
+	
+	@Test
+	@Ignore
+	public void getRootCategorie() throws ParseException
+	{
+		
+		try {					
+			logger.info("Root categories : "+categorieDAO.getRootCategorie());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
 	}
 }

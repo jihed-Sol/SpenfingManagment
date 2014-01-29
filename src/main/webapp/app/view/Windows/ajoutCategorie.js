@@ -1,7 +1,7 @@
 Ext.define('AM.view.Windows.ajoutCategorie' ,{
 	extend : 'Ext.window.Window',
     title: 'Ajout Categorie',
-	
+	id : 'AjCat',
 	stores: ['DepenseStore','CategorieStore'],
 	alias: 'widget.ajoutCategorie',
     height: 200,
@@ -26,14 +26,15 @@ Ext.define('AM.view.Windows.ajoutCategorie' ,{
             fieldLabel: 'Date creation',
             name: 'creationDate',
             xtype: 'datefield',
-            tooltip: 'Entrer date'
+            tooltip: 'Entrer date',
+			value: new Date()
         },{
 			xtype: 'combo',
 			fieldLabel: 'Groupe Categorie',
 			name: 'parentId',
 			displayField: 'name',
 			valueField: 'id',
-			store:	'CategorieStore'
+			store:	'RootCategorieStore'
 		}],
 		buttons: [{
             text: 'Save',
@@ -51,7 +52,8 @@ Ext.define('AM.view.Windows.ajoutCategorie' ,{
 
 function refrechStores(){
 		Ext.getStore('DepenseStore').load();
-		Ext.getStore('CategorieStore').load();
+		Ext.getStore('SubCategorieStore').load();
+		Ext.getStore('RootCategorieStore').load();
 		Ext.getStore('Stat').load();
 		Ext.getStore('TreeStore').load();	
 	}

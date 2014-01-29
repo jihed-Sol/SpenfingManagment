@@ -36,6 +36,7 @@ Ext.define('AM.view.CenterSide.centerContainer' ,{
 			flex : 1
 		}],
 		
-    }],
+    }]
+	
 	  
 });

@@ -132,6 +132,36 @@ public class DepenseDAO implements IDepenseDAO {
 		}
 		return null;
 	}
+	
+
+	@Override
+	public List<Depense> getAll(Date startDate, Date endDate, List<Long> categorie) {
+		try {
+				
+			return entity.createQuery("select d from Depense d where d.date between :startDate and :endDate  and d.categorie.id in :categorie")
+					.setParameter("startDate", startDate)
+					.setParameter("endDate", endDate)
+					.setParameter("categorie", categorie)
+					.getResultList();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Depense> getAll(List<Long> categorie) {
+		try {
+				
+			return entity.createQuery("select d from Depense d where d.date between :startDate and :endDate  and d.categorie.id in :categorie")				
+					.setParameter("categorie", categorie)
+					.getResultList();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+
 
 	@Override
 	public List<Depense> getAll(Long categorie) {

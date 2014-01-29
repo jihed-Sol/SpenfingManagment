@@ -33,6 +33,9 @@ public class CategorieDAO implements ICategorieDAO {
 	public boolean create(Categorie o) {
 
 		try {
+			
+			if(o.getParentId()==null)
+				o.setParentId(-1L);
 			entity.persist(o);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -87,7 +90,7 @@ public class CategorieDAO implements ICategorieDAO {
 	public List<Categorie> getAll() {
 		try {
 			logger.info("Call getALL Categgorie");
-			return entity.createQuery("select c from Categorie c")
+			return entity.createQuery("select c from Categorie c order by c.parentId ASC")
 					.getResultList();
 
 		} catch (Exception e) {
@@ -95,4 +98,34 @@ public class CategorieDAO implements ICategorieDAO {
 		}
 		return null;
 	}
+	
+	
+	@Override
+	public List<Categorie> getChildCategorie(Long id) {
+		try {
+						
+			return entity.createQuery("select c from Categorie c where c.parentId =:id")
+					.setParameter("id",id)
+					.getResultList();
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Categorie> getRootCategorie() {
+		try {
+						
+			return entity.createQuery("select c from Categorie c where c.parentId =-1")
+				
+					.getResultList();
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return null;
+	}
+	
 }

@@ -94,23 +94,32 @@ public class DepenseController {
 	
 	
 	@RequestMapping(value="/DepenseController/statistique.action")
-	public @ResponseBody Map<String,? extends Object> stat(String startDate,String endDate) throws ParseException
+	public @ResponseBody Map<String,? extends Object> stat(String startDate,String endDate,String categorie) throws ParseException
 	{
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		if((startDate==null)||(endDate==null))	
 			return gestion.statistiqueDepense();
 		else
-			return gestion.statistiqueDepense(format.parse(startDate), format.parse(endDate));
+			return gestion.statistiqueDepense(format.parse(startDate), format.parse(endDate),categorie);
 	}
 	
 	@RequestMapping(value="/DepenseController/statistiqueBar.action")
-	public @ResponseBody Map<String,? extends Object> statBar(String startDate,String endDate) throws ParseException
+	public @ResponseBody Map<String,? extends Object> statBar(String startDate,String endDate,String categorie) throws ParseException
 	{
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		if((startDate==null)||(endDate==null))	
 			return gestion.statistiqueDepense();
 		else
-			return gestion.statistiqueDepenseBar(format.parse(startDate), format.parse(endDate));
+			return gestion.statistiqueDepenseBar(format.parse(startDate), format.parse(endDate),categorie);
+	}
+	
+	
+	@RequestMapping(value="/DepenseController/statistiqueSeries.action")
+	public @ResponseBody Map<String,? extends Object> statSeries(String startDate,String endDate) throws ParseException
+	{
+		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+	
+		return gestion.statistiqueDepenseSeries(format.parse(startDate), format.parse(endDate));
 	}
 
 	private Map<String, Object> getModelMapError(String msg) {

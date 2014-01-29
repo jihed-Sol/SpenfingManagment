@@ -1,7 +1,7 @@
 Ext.define('AM.view.Windows.modifDepense' ,{
 	extend : 'Ext.window.Window',
     title: 'Modifie Depense',
-	stores: ['DepenseStore','CategorieStore'],
+	stores: ['DepenseStore','SubCategorieStore'],
 	alias: 'widget.modifDepense',
     height: 200,
     width: 400,
@@ -19,8 +19,7 @@ Ext.define('AM.view.Windows.modifDepense' ,{
 		items: [{
 		
 			name : 'id',
-			hidden: true
-		
+			hidden: true		
 		},{
             fieldLabel: 'Somme',
 			id :'modifSomme',
@@ -43,7 +42,7 @@ Ext.define('AM.view.Windows.modifDepense' ,{
 			name: 'idCategorie',
 			displayField: 'name',
 			valueField: 'id',
-			store:	'CategorieStore'
+			store:	'SubCategorieStore'
 		}],
 		buttons: [{
             text: 'Save',
@@ -57,7 +56,7 @@ Ext.define('AM.view.Windows.modifDepense' ,{
 					success: function(form, action) {
 							
 						var grid =Ext.getCmp('grid');
-						refrechStores();         
+						refrechStore();         
 					},
 					failure: function(form, action) {						
 					}
@@ -71,11 +70,12 @@ Ext.define('AM.view.Windows.modifDepense' ,{
             }
         }]
     }],
-	refrechStores  : function(){
-		this.getStore('DepenseStore').load();
-		this.getStore('CategorieStore').load();
-		this.getStore('Stat').load();
-		this.getStore('TreeStore').load();		
-		Ext.getStore('barStore').load();	
-	}
+	
 });
+function refrechStore (){
+	
+	Ext.getStore('DepenseStore').load();
+	Ext.getStore('Stat').load();
+	Ext.getStore('TreeStore').load();	
+	Ext.getStore('barStore').load();
+}
