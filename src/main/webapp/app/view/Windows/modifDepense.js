@@ -1,8 +1,8 @@
 Ext.define('AM.view.Windows.modifDepense' ,{
-	extend : 'Ext.window.Window',
+    extend : 'Ext.window.Window',
     title: 'Modifie Depense',
-	stores: ['DepenseStore','SubCategorieStore'],
-	alias: 'widget.modifDepense',
+    stores: ['DepenseStore','SubCategorieStore'],
+    alias: 'widget.modifDepense',
     height: 200,
     width: 400,
     layout: 'fit',
@@ -44,7 +44,7 @@ Ext.define('AM.view.Windows.modifDepense' ,{
 			valueField: 'id',
 			store:	'SubCategorieStore'
 		}],
-		buttons: [{
+	buttons: [{
             text: 'Save',
             handler: function() {
 			 var form = this.up('form').getForm();
